@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+websockets
+requests
+pillow
+opencv-python-headless
+mediapipe
+transformers
+einops
+torch
+torchvision
