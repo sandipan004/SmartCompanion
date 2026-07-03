@@ -24,9 +24,9 @@ RUN pip install --no-cache-dir --default-timeout=100 -r requirements.txt
 # Copy the rest of the backend files (including the /tasks directory with MediaPipe models)
 COPY . .
 
-# Expose port 8000 for FastAPI
-EXPOSE 8000
+# Expose port 7860 for Hugging Face Spaces
+EXPOSE 7860
 
 # Command to run the application
 # We bind to 0.0.0.0 so it is accessible outside the container
-CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]
