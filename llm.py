@@ -1,13 +1,18 @@
+import os
 import time
 import logging
-import requests
+from huggingface_hub import InferenceClient
 from config import (
-    LLM_MODEL, OLLAMA_URL,
-    LLM_TEMPERATURE, LLM_NUM_PREDICT, LLM_STOP_SEQS,
+    LLM_MODEL,
+    LLM_TEMPERATURE, LLM_NUM_PREDICT,
     MIN_STEPS_BEFORE_DONE,
 )
 
 log = logging.getLogger("llm")
+
+# Initialize the Hugging Face Inference Client
+# If HF_TOKEN is in the environment (which it will be in the Space settings), it will use it.
+client = InferenceClient(model=LLM_MODEL, token=os.environ.get("HF_TOKEN"))
 
 def build_user_message(
     goal,
@@ -35,23 +40,19 @@ Give ONLY ONE micro-step:
 """
 
 def call_llm(chat_history: list[dict]) -> str:
-    """Send the full chat history to Ollama and return the assistant's reply."""
+    """Send the full chat history to Hugging Face Inference API and return the assistant's reply."""
     t0 = time.time()
-    resp = requests.post(
-        OLLAMA_URL,
-        json={
-            "model": LLM_MODEL,
-            "messages": chat_history,
-            "stream": False,
-            "options": {
-                "temperature": 0.2,
-                "num_predict": 40,   # reduce from large value
-            },
-        },
-        timeout=120,
-    )
-    resp.raise_for_status()
+    try:
+        reply = client.chat_completion(
+            messages=chat_history,
+            max_tokens=LLM_NUM_PREDICT,
+            temperature=LLM_TEMPERATURE,
+        )
+        content = reply.choices[0].message.content.strip()
+    except Exception as e:
+        log.error(f"HF Inference Error: {e}")
+        raise e
+
     elapsed = time.time() - t0
-    reply = resp.json()["message"]["content"].strip()
-    log.info(f"LLM ({elapsed:.2f}s): {reply}")
-    return reply
+    log.info(f"LLM ({elapsed:.2f}s): {content}")
+    return content

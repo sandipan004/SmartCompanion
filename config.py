@@ -1,9 +1,9 @@
 import torch
 
-LLM_MODEL = "qwen2.5:3b" # fast Ollama model (~3s)
+LLM_MODEL = "Qwen/Qwen2.5-3B-Instruct" # Fast cloud model via HF Inference
 VLM_MODEL = "HuggingFaceTB/SmolVLM-500M-Instruct"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-OLLAMA_URL = "http://localhost:11434/api/chat"
+
 MAX_STEPS = 8 # safety cap per session
 MIN_STEPS_BEFORE_DONE = 3 # LLM cannot signal DONE before this many accepted steps
 LLM_TEMPERATURE = 0.3
