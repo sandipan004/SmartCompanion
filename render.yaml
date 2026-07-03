@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: smart-companion-backend
+    env: docker
+    region: ohio
+    plan: free # Note: The free plan is CPU-only. Consider upgrading to a paid tier if performance is slow.
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 8000
