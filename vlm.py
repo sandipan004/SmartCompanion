@@ -14,7 +14,7 @@ log.info(f"Loading VLM ({VLM_MODEL}) on {DEVICE}...")
 processor = AutoProcessor.from_pretrained(VLM_MODEL)
 vlm_model = AutoModelForImageTextToText.from_pretrained(
     VLM_MODEL,
-    dtype=torch.float16 if DEVICE == "cuda" else torch.float32,
+    torch_dtype=torch.float16 if DEVICE == "cuda" else torch.float32,
 ).to(DEVICE)
 log.info("VLM ready.")
 
