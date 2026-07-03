@@ -53,7 +53,8 @@ const VideoStream = forwardRef<VideoStreamHandle, VideoStreamProps>(({ sessionId
           videoRef.current.srcObject = stream;
         }
 
-        const ws = new WebSocket(`ws://localhost:8000/session/${sessionId}/stream`);
+        const wsUrl = process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8000";
+        const ws = new WebSocket(`${wsUrl}/session/${sessionId}/stream`);
         wsRef.current = ws;
 
         ws.onmessage = async (event) => {

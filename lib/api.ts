@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export async function startSession(goal: string) {
   const res = await fetch(`${BASE_URL}/session/new`, {
