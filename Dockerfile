@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     libglib2.0-0 \
     libgles2-mesa \
-    libegl1 \
+    libegl1-mesa \
+    libegl1-mesa-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory in the container

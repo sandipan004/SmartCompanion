@@ -1,6 +1,6 @@
 import torch
 
-LLM_MODEL = "Qwen/Qwen2.5-3B-Instruct" # Fast cloud model via HF Inference
+LLM_MODEL = "HuggingFaceH4/zephyr-7b-beta" # Fast cloud model via HF Inference
 VLM_MODEL = "HuggingFaceTB/SmolVLM-500M-Instruct"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
