@@ -1,12 +1,3 @@
----
-title: Smart Companion Backend
-emoji: 🧠
-colorFrom: blue
-colorTo: green
-sdk: docker
-app_port: 7860
----
-
 # 🧠 ADHD Smart Companion
 
 An interactive, supportive real-world task companion designed to help users with ADHD focus and complete tasks step by step. By combining a local Vision-Language Model (VLM) for scene understanding and a Large Language Model (LLM) for action guidance, the assistant breaks down complex goals into bite-sized, single-sentence micro-steps.
